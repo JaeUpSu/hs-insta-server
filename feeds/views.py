@@ -6,8 +6,11 @@ from .serializers import FeedSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.exceptions import NotFound
+from rest_framework.permissions import IsAuthenticated
 
 class Feeds(APIView):
+        ## 로그인한 유저만 허용한다라는 의미.
+    permission_classes = [IsAuthenticated]
     def get(self, request):
         model = Feed.objects.all()
         serializer = FeedSerializer(model, many=True)
@@ -23,6 +26,9 @@ class Feeds(APIView):
 
      
 class FeedsByUsername(APIView):
+    
+    ## 로그인한 유저만 허용한다라는 의미.
+    permission_classes = [IsAuthenticated]
     def get_objects(self, _username):
         try:
             user = User.objects.get(username=_username)
@@ -38,6 +44,9 @@ class FeedsByUsername(APIView):
         
 
 class Modify_Feed(APIView):
+    
+    ## 로그인한 유저만 허용한다라는 의미.
+    permission_classes = [IsAuthenticated]
     def get_object(self, feed_id):
         try:
             return Feed.objects.get(pk=feed_id)
