@@ -8,4 +8,4 @@ class User(AbstractUser):
     followerNumber = models.PositiveIntegerField(default=0)
     
     def __str__(self) -> str:
-        return str(self.pk)
+        return self.username
