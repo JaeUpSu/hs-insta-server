@@ -6,5 +6,5 @@ class UserSerializer(ModelSerializer):
         model = User
         
         # fields = "__all__" 은 모두 
-        fields = ("username","img","info","followerNumber",)
+        fields = ("pk","username","img","info","followerNumber",)
         

@@ -55,4 +55,18 @@ class Modify_User(APIView):
         else:
             return Response("invalid request")
             
-   
+
+class Get_User(APIView):
+    ## 로그인한 유저만 허용한다라는 의미.
+    permission_classes = [IsAuthenticated]
+    def get_object(self, _username):
+        try:
+            return User.objects.get(username=_username)
+        except User.DoesNotExist:
+            raise NotFound
+
+    def get(self, request, username):
+        model = self.get_object(username)
+        serializer = UserSerializer(model)
+        return Response(serializer.data)
+    
